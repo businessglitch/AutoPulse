@@ -1,50 +1,45 @@
 const scrapingQueue = require('../services/queue');
 const ScrapingJob = require('../models/ScrapingJob');
-const { scrapeCarsForBusiness } = require('../services/scrapingService');
+const { performScrape } = require('../services/scrapingService');
 const RecentScrape = require('../models/RecentScrape');
 
+// Event listener for completed jobs
+scrapingQueue.on('completed', (job, result) => {
+  console.log(`Job ID ${job.id} completed with result:`, result);
+});
+
+// Event listener for failed jobs
+scrapingQueue.on('failed', (job, err) => {
+  console.error(`Job ID ${job.id} failed with error:`, err);
+});
 
 scrapingQueue.process(async (job) => {
-    const { jobId, url, , dealershipId } = job.data;
-  
-  try {
+  console.log("Started processing Job", jobId, dealership)
 
-    
-     // Create a pending RecentScrape entry
-     const recentScrape = await RecentScrape.create({
-        url,
-        status: 'pending',
-        userId
-      });
-      
+  const { jobId, dealership } = job.data;
+
+  try {
     // Update job status to processing
     await ScrapingJob.findByIdAndUpdate(jobId, { status: 'processing' });
 
     // Perform scraping
-    const scrapeResult = await scrapeCarsForBusiness(business.url);
+    const scrapeResult = await performScrape(dealership);
 
     // Update job with results
     await ScrapingJob.findByIdAndUpdate(jobId, {
       status: 'completed',
       result: scrapedData,
+      totalScraped: scrapeResult.totalScraped,
+      newCars: scrapeResult.newCars,
+      updatedCars: scrapeResult.updatedCars,
+      soldCars: scrapeResult.soldCars,
       updatedAt: new Date()
     });
 
-        // Update the RecentScrape entry
-        await RecentScrape.findByIdAndUpdate(recentScrape._id, {
-        business: businessId,
-        totalScraped: scrapeResult.totalScraped,
-        newCars: scrapeResult.newCars,
-        updatedCars: scrapeResult.updatedCars,
-        soldCars: scrapeResult.soldCars,
-        status: 'completed'
-        });
 
     return scrapeResult;
   } catch (error) {
     console.error(`Error processing job ${jobId}:`, error);
-    
-    
     // Update job with error information
     await ScrapingJob.findByIdAndUpdate(jobId, {
         status: 'failed',

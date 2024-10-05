@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Car, DollarSign, BarChart2, Plus, RefreshCw,ExternalLink, Link as LinkIcon } from 'lucide-react';
 import { scrapeWebsite } from '../services/scrape';
-import axios from 'axios';
 import JobStatus from './JobStatus';
 import RecentScrapes from './RecentScrapes';
 import AddBusiness from './AddBusiness';
@@ -65,9 +64,8 @@ const Dashboard = () => {
       setIsLoading(true);
       setError(null);
 
-
     try {
-        const response = await axios.post('/api/scraping/scrape', { businessId: selectedBusiness });
+        const response = await api.post('/scraping/scrape', { dealershipId: selectedBusiness });
         console.log('Scrape result:', response.data);
         setJobId(response.data.jobId);
       } catch (err) {

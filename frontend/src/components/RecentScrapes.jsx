@@ -28,13 +28,7 @@ const RecentScrapes = () => {
     const fetchRecentScrapes = async () => {
       try {
         const response = await api.get('/scraping/recent');
-        if(response.data.length > 1) {
           setRecentScrapes(response.data);
-
-        } else {
-          setRecentScrapes(recentScrapedSites);
-
-        }
       } catch (err) {
         setError('Failed to fetch recent scrapes');
       }
@@ -59,7 +53,7 @@ const RecentScrapes = () => {
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scraped At</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Started At</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Scraped</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
               </tr>
@@ -76,15 +70,17 @@ const RecentScrapes = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{scrape.business.name}</div>
-                    <div className="text-sm text-gray-500">{scrape.business.url}</div>
+                  <div className="text-sm text-gray-900">{scrape.dealershipId}</div>
+                    {/* <div className="text-sm text-gray-900">{scrape.business.name}</div>
+                    <div className="text-sm text-gray-500">{scrape.business.url}</div> */}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(scrape.scrapedAt).toLocaleString()}
+                    {new Date(scrape.startedAt).toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {scrape.totalScraped}
+                    {(scrape.status === "completed") ? scrape.totalCars: '-'}
                   </td>
+
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <Link 
                       to={`/scraped-job-details/${scrape._id}`} 

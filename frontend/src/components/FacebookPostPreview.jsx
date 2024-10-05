@@ -15,15 +15,15 @@ const FacebookPostPreview = ({ selectedCars, onClose }) => {
           <div className="bg-gray-100 rounded-lg p-4 mb-4">
             <p className="font-semibold mb-2">Check out these great deals!</p>
             {selectedCars.map((car, index) => (
-              <div key={car.id} className="mb-2 last:mb-0">
+              <div key={car.vin} className="mb-2 last:mb-0">
                 <p>{car.year} {car.make} {car.model} - ${car.price.toLocaleString()}</p>
-                <p className="text-sm text-gray-600">Unique ID: {car.uniqueId}</p>
+                <p className="text-sm text-gray-600">Vin: {car.vin}</p>
                 <img src={car.image} alt={`${car.make} ${car.model}`} className="mt-2 rounded-md w-full" />
                 {index < selectedCars.length - 1 && <hr className="my-2 border-gray-300" />}
               </div>
             ))}
             <p className="mt-4 text-sm text-gray-600">
-              Interested? Contact us and mention the Unique ID for quick assistance!
+              Interested? Contact us and mention the Vin for quick assistance!
             </p>
           </div>
           <p className="text-sm text-gray-500">This is a preview of how your post will appear on Facebook. The actual post may vary slightly.</p>

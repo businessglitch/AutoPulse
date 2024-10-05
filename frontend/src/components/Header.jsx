@@ -23,11 +23,11 @@ const Header = () => {
           {isAuthenticated ? (
             <div className="flex items-center">
                 <Link 
-              to="/lead-management" 
+              to="/inventory" 
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 transition-colors duration-300"
             >
-              Lead Management
-              <Users className="ml-2 -mr-1 h-5 w-5" />
+              Inventory
+              {/* <Users className="ml-2 -mr-1 h-5 w-5" /> */}
             </Link>
               <Link 
                 to="/dashboard" 

@@ -8,6 +8,7 @@ import LandingPage from './components/LandingPage';
 import Header from './components/Header';
 import LeadManagementPage from './components/LeadManagementPage';
 import LeadForm from './components/LeadForm';
+import InventoryPage from './components/InventoryPage';
 
 
 
@@ -35,10 +36,10 @@ function App() {
             } 
           />
           <Route 
-              path="/lead-management" 
+              path="/inventory" 
               element={
                 <PrivateRoute>
-                  <LeadManagementPage />
+                  <InventoryPage />
                 </PrivateRoute>
               } 
             />

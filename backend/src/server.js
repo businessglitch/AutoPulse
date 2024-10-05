@@ -9,6 +9,7 @@ const scrapingRoutes = require('./routes/scraping');
 const businessRoutes = require('./routes/business');
 const leadRoutes = require('./routes/leads');
 const facebookRoutes = require('./routes/facebook');
+const inventoryRoutes = require('./routes/inventory');
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use('/api/scraping', scrapingRoutes);
 app.use('/api/businesses', businessRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/facebook',facebookRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
