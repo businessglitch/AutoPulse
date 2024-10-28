@@ -1,4 +1,4 @@
-import api from '../services/api';
+import api from './api';
 
 export const scrapeWebsite = async (url) => {
     const response = await api.fetch(`/scraping/scrape`, {

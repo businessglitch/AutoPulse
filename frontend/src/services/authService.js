@@ -1,7 +1,11 @@
 // authService.js
-const endpoint = "http://localhost:5000";
+import api from '../services/api';
+
+const endpoint = process.env.REACT_APP_API_BASE_URL;
+
+
 export const loginUser = async (email, password) => {
-    const response = await fetch(`${endpoint}/api/auth/login`, {
+    const response = await fetch(`${endpoint}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +28,7 @@ export const loginUser = async (email, password) => {
   };
  
 export const registerUser = async(email, password) => {
-    const response = await fetch(`${endpoint}/api/auth/register`, {
+    const response = await fetch(`${endpoint}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
